@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import RepositoryStore from '../stores/RepositoryStore.js';
@@ -12,12 +12,11 @@ const RepositoryDetailPage = observer(() => {
     const [selectedRepo, setSelectedRepo] = useState(null);
 
     useEffect(() => {
-        // Проверяем, есть ли выбранный репозиторий в списке всех репозиториев или избранных
         const allRepositories = [...RepositoryStore.repositories, ...RepositoryStore.favoriteRepositories];
         const foundRepo = allRepositories.find(repo => repo.full_name === repositoryId);
         
         if (!foundRepo) {
-            navigate('/'); // Если репозиторий не найден, переходим на главную страницу
+            navigate('/');
         } else {
             setSelectedRepo(foundRepo);
         }

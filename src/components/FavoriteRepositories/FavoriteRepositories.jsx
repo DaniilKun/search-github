@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './FavoriteRepositories.module.scss';
 import RepositoryStore from '../../stores/RepositoryStore';
 import { useNavigate } from 'react-router-dom';

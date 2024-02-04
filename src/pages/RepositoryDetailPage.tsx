@@ -1,31 +1,29 @@
-import  { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import RepositoryStore from '../stores/RepositoryStore.js';
+import RepositoryStore from '../stores/RepositoryStore';
 import styles from './RepositoryDetailPage.module.scss';
-import { Link } from 'react-router-dom';
 
-
-const RepositoryDetailPage = observer(() => {
+const RepositoryDetailPage: React.FC = observer(() => {
     const navigate = useNavigate();
     const { repositoryId } = useParams();
-    const [selectedRepo, setSelectedRepo] = useState(null);
+    const [selectedRepo, setSelectedRepo] = useState<any>(null);
 
     useEffect(() => {
         const allRepositories = [...RepositoryStore.repositories, ...RepositoryStore.favoriteRepositories];
-        const foundRepo = allRepositories.find(repo => repo.full_name === repositoryId);
+        const foundRepo = allRepositories.find((repo: any) => repo.full_name === repositoryId);
         
         if (!foundRepo) {
             navigate('/');
         } else {
             setSelectedRepo(foundRepo);
         }
-    }, [repositoryId]);
+    }, [navigate, repositoryId]);
 
     if (!selectedRepo) {
         return <h2>Loading...</h2>;
     }
-    console.log(selectedRepo);
+
     return (
         <div>
             <h2 className={styles.title}>Подробная информация о репозитории {repositoryId}</h2>

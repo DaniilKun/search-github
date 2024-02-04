@@ -1,9 +1,26 @@
+import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 import styles from './RepositoryList.module.scss';
 import RepositoryStore from '../../stores/RepositoryStore';
 
-const RepositoryList = ({ html_url, full_name, stargazers_count, forks_count, owner }) => {
+export interface RepositoryProps {
+  html_url: string;
+  full_name: string;
+  stargazers_count: number;
+  forks_count: number;
+  owner: {
+    avatar_url: string;
+  };
+}
+
+const RepositoryList: React.FC<RepositoryProps> = ({
+  html_url,
+  full_name,
+  stargazers_count,
+  forks_count,
+  owner,
+}) => {
   const navigate = useNavigate();
 
   const addToFavorites = () => {

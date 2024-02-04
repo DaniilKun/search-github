@@ -1,7 +1,13 @@
+import React, { ChangeEvent } from 'react';
 import styles from './InputField.module.scss';
 import CopyButton from '../CopyButton';
 
-const InputField = ({ value, onChange }) => {
+interface InputFieldProps {
+  value: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+const InputField: React.FC<InputFieldProps> = ({ value, onChange }) => {
   return (
     <div>
       <input 

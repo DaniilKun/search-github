@@ -1,13 +1,13 @@
 import { makeAutoObservable } from 'mobx';
 
 class CopyStore {
-  copied=false;
+  copied: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setCopied(text) {
+  setCopied(text: string) {
     navigator.clipboard.writeText(text);
     this.copied = true;
 

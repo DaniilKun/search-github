@@ -1,14 +1,30 @@
-import styles from './FavoriteRepositories.module.scss';
-import RepositoryStore from '../../stores/RepositoryStore';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+import RepositoryStore from '../../stores/RepositoryStore';
+import styles from './FavoriteRepositories.module.scss';
 
+interface RepositoryProps {
+  html_url: string;
+  full_name: string;
+  stargazers_count: number;
+  forks_count: number;
+  owner: {
+    avatar_url: string;
+  };
+}
 
-const FavoriteRepositories = ({ html_url, full_name, stargazers_count, forks_count, owner }) => {
+const FavoriteRepositories: React.FC<RepositoryProps> = ({
+  html_url,
+  full_name,
+  stargazers_count,
+  forks_count,
+  owner,
+}) => {
   const navigate = useNavigate();
 
   const removeFromFavorites = () => {
-    RepositoryStore.removeFromFavorites({ html_url, full_name, stargazers_count, forks_count, owner });
+    RepositoryStore.removeFromFavorites({ html_url });
   };
 
   const goToRepositoryPage = () => {

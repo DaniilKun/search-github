@@ -1,13 +1,18 @@
+import React from 'react';
 import { observer } from 'mobx-react-lite';
 import CopyStore from '../stores/CopyStore';
 
-const CopyButton = ({ text }) => {
+interface CopyButtonProps {
+  text: string;
+}
+
+const CopyButton: React.FC<CopyButtonProps> = ({ text }) => {
   const setCopied = () => {
     CopyStore.setCopied(text);
   };
 
   return (
-    <button onClick={setCopied} >
+    <button onClick={setCopied}>
       {CopyStore.copied ? 'Copied' : 'Copy'}
     </button>
   );

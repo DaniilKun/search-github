@@ -1,38 +1,42 @@
 import { makeAutoObservable } from 'mobx';
 
+interface Repository {
+  html_url: string;
+}
+
 class RepositoryStore {
-  repositories = [];
-  favoriteRepositories = [];
-  selectedRepositoryName = '';
+  repositories: Repository[] = [];
+  favoriteRepositories: Repository[] = [];
+  selectedRepositoryName: string = '';
 
   constructor() {
     makeAutoObservable(this);
     this.loadFavorites();
   }
 
-  setRepositories(repositories) {
+  setRepositories(repositories: Repository[]) {
     this.repositories = repositories;
   }
 
-  selectRepo(repoName) {
+  selectRepo(repoName: string) {
     this.selectedRepositoryName = repoName;
   }
 
-  addToFavorites(repository) {
+  addToFavorites(repository: Repository) {
     if (!this.isFavorite(repository)) {
       this.favoriteRepositories.push(repository);
       this.saveFavorites();
     }
   }
 
-  removeFromFavorites(repository) {
+  removeFromFavorites(repository: Repository) {
     this.favoriteRepositories = this.favoriteRepositories.filter(
       (item) => item.html_url !== repository.html_url
     );
     this.saveFavorites();
   }
 
-  isFavorite(repository) {
+  isFavorite(repository: Repository) {
     return this.favoriteRepositories.some(
       (item) => item.html_url === repository.html_url
     );

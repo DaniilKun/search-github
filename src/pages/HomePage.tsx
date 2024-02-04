@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import InputField from '../components/InputField/InputField';
 import RepositoryList from '../components/RepositoryList/RepositoryList';
@@ -7,12 +7,12 @@ import { observer } from 'mobx-react-lite';
 import styles from './HomePage.module.scss';
 import FavoriteRepositories from '../components/FavoriteRepositories/FavoriteRepositories';
 
-const HomePage = observer(() => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const timeoutRef = useRef(null);
-  const [searchError, setSearchError] = useState('');
+const HomePage: React.FC = observer(() => {
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [searchError, setSearchError] = useState<string>('');
 
-  const handleSearchTermChange = (event) => {
+  const handleSearchTermChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
@@ -39,7 +39,9 @@ const HomePage = observer(() => {
 
     fetchData();
 
-    return () => clearTimeout(timeoutRef.current);
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, [searchTerm]);
 
   return (
